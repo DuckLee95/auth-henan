@@ -19,7 +19,7 @@ use Vectorface\Whip\Whip;
 
 use Illuminate\Http\JsonResponse;
 
-class XAuthController implements AuthAdapter
+class XAuthController
 {
     //登录页
     public function login(Filter $filter, string $msg = '')
