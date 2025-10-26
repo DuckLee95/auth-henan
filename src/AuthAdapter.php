@@ -1,5 +1,6 @@
 <?php
 
+namespace Blessing\XAuth;
 
 use App\Rules;
 use Blessing\Filter;
