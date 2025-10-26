@@ -1,0 +1,57 @@
+<main>
+  <form method="post" id="login-form" action="{{ url('/auth/login/ncwu') }}">
+    {{ csrf_field() }}
+    <!-- xauth-id -->
+    <div class="input-group mb-3">
+      <input name="identification" type="text" class="form-control"
+        placeholder="{{ trans('Blessing\\XAuth::auth.identification') }}">
+      <div class="input-group-append">
+        <div class="input-group-text">
+          <span class="fas fa-user" />
+        </div>
+      </div>
+    </div>
+    <!-- password -->
+    <div class="input-group mb-3">
+      <input name="password" type="password" class="form-control"
+        placeholder="{{ trans('Blessing\\XAuth::auth.password') }}">
+      <div class="input-group-append">
+        <div class="input-group-text">
+          <span class="fas fa-key" />
+        </div>
+      </div>
+    </div>
+
+    <!-- player-name -->
+    <div class="input-group mb-3">
+      <input name="player_name" type="text" class="form-control"
+        placeholder="{{ trans('Blessing\\XAuth::auth.player-name') }}">
+      <div class="input-group-append">
+        <div class="input-group-text">
+          <span class="fas fa-gamepad" />
+        </div>
+      </div>
+    </div>
+
+    {% if errors.any %}
+    <div class="alert alert-warning">
+      <i class="icon fas fa-exclamation-triangle" style="display:contents;">
+        {{ errors.first }}
+      </i>
+    </div>
+    {% endif %}
+
+    <!-- msg -->
+    {% if msg|length>0 %}
+    <div class="alert alert-warning">
+      <i class="icon fas fa-exclamation-triangle" style="display:contents;">
+        {{msg}}
+      </i>
+    </div>
+    {% endif %}
+
+    <button type="submit" class="btn btn-primary btn-block mt-3">
+      {{ trans('Blessing\\XAuth::auth.login.title') }}
+    </button>
+  </form>
+</main>

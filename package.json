@@ -1,0 +1,18 @@
+{
+  "name": "auth-ncwu",
+  "title": "Blessing\\XAuth::general.title",
+  "version": "0.1.0",
+  "description": "Blessing\\XAuth::general.description",
+  "author": "homoarea",
+  "url": "https://github.com/",
+  "namespace": "Blessing\\XAuth",
+  "require": {
+    "blessing-skin-server": "^5|^6"
+  },
+  "enchants": {
+    "icon":{
+      "bg":"cyan",
+      "fa":"mars-double"
+    }
+  }
+}
