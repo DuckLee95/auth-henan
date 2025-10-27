@@ -1,12 +1,16 @@
 <main>
   <form method="post" id="login-form" action="{{ url('/auth/login/henan') }}">
     {{ csrf_field() }}
-    <!-- auth_type -->
-     <div class="input-group mb-3">
-      
+    <!-- auth_school -->
+    <div class="input-group mb-3">
+      <select name="school" id="auth-school">
+        {% for key, value in schools %}
+        <option value={{key}}>{{value}}</option>
+        {% endfor %}
+      </select>
       <div class="input-group-append">
         <div class="input-group-text">
-          <span class="fas fa-user" />
+          <span class="fa fa-graduation-cap" />
         </div>
       </div>
     </div>
