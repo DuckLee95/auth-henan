@@ -1,6 +1,6 @@
 <?php
 
-namespace Blessing\XAuth;
+namespace Blessing\HAuth;
 
 use App\Events;
 use App\Models\Player;
@@ -19,7 +19,7 @@ use Vectorface\Whip\Whip;
 
 use Illuminate\Http\JsonResponse;
 
-class XAuthController
+class HAuthController
 {
     //登录页
     public function login(Filter $filter, string $msg = '')
@@ -29,14 +29,14 @@ class XAuthController
         $ip = $filter->apply('client_ip', $ip);
 
         $rows = [
-            'Blessing\XAuth::auth.rows.login.notice',
-            'Blessing\XAuth::auth.rows.login.form',
-            'Blessing\XAuth::auth.rows.login.message',
-            'Blessing\XAuth::auth.rows.login.registration-link',
+            'Blessing\HAuth::auth.rows.login.notice',
+            'Blessing\HAuth::auth.rows.login.form',
+            'Blessing\HAuth::auth.rows.login.message',
+            'Blessing\HAuth::auth.rows.login.registration-link',
         ];
         $rows = $filter->apply('auth_page_rows:login', $rows);
 
-        return view('Blessing\XAuth::auth.login', [
+        return view('Blessing\HAuth::auth.login', [
             'rows' => $rows,
             'extra' => [
                 'tooManyFails' => cache(sha1('login_fails_' . $ip)) > 3,
@@ -58,7 +58,7 @@ class XAuthController
         Filter $filter
     ) {
         // ncwu统一认证
-        $json = json_decode(XAuthController::authserver($request)->getContent(), true);
+        $json = json_decode(HAuthController::authserver($request)->getContent(), true);
         //认证过滤
         if (!$json['success']) {
             return $this->login($filter, 'ncwu统一认证失败,检查账号和密码');

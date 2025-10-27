@@ -1,11 +1,11 @@
 {
   "name": "auth-henan",
-  "title": "Blessing\\XAuth::general.title",
+  "title": "Blessing\\HAuth::general.title",
   "version": "0.1.0",
-  "description": "Blessing\\XAuth::general.description",
+  "description": "Blessing\\HAuth::general.description",
   "author": "homoarea",
   "url": "https://github.com/",
-  "namespace": "Blessing\\XAuth",
+  "namespace": "Blessing\\HAuth",
   "require": {
     "blessing-skin-server": "^5|^6"
   },

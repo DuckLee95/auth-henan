@@ -1,9 +1,9 @@
-{% extends 'Blessing\\XAuth::auth.base' %}
+{% extends 'Blessing\\HAuth::auth.base' %}
 
-{% block title %}{{ trans('Blessing\\XAuth::auth.bind.title') }}{% endblock %}
+{% block title %}{{ trans('Blessing\\HAuth::auth.bind.title') }}{% endblock %}
 
 {% block content %}
-  <p class="login-box-msg">{{ trans('Blessing\\XAuth::auth.bind.message') }}</p>
+  <p class="login-box-msg">{{ trans('Blessing\\HAuth::auth.bind.message') }}</p>
   <form method="post" id="login-form" action="{{ url('/auth/bind') }}">
     {{ csrf_field() }}
     <div class="input-group mb-3">
@@ -11,7 +11,7 @@
         name="email"
         type="email"
         class="form-control"
-        placeholder="{{ trans('Blessing\\XAuth::auth.email') }}"
+        placeholder="{{ trans('Blessing\\HAuth::auth.email') }}"
       >
       <div class="input-group-append">
         <div class="input-group-text">
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <p>{{ trans('Blessing\\XAuth::auth.bind.introduction') }}</p>
+    <p>{{ trans('Blessing\\HAuth::auth.bind.introduction') }}</p>
 
     {% if errors.any %}
       <div class="alert alert-warning">
@@ -30,7 +30,7 @@
     {% endif %}
 
     <button type="submit" class="btn btn-primary btn-block mt-3">
-      {{ trans('Blessing\\XAuth::auth.bind.button') }}
+      {{ trans('Blessing\\HAuth::auth.bind.button') }}
     </button>
   </form>
 {% endblock %}

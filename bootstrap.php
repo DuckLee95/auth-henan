@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 use App\Services\Hook;
 
-use Blessing\XAuth\XAuthController;
+use Blessing\HAuth\HAuthController;
 
 return function (Dispatcher $events, Filter $filter) {
     //
@@ -28,11 +28,11 @@ return function (Dispatcher $events, Filter $filter) {
     // 路由
     Hook::addRoute(function(){
         Route::prefix('auth/login/henan')
-        ->namespace('Blessing\XAuth')
+        ->namespace('Blessing\HAuth')
         ->middleware(['web','guest'])
         ->group(function(){
-            Route::get('/',[XAuthController::class,'login']);
-            Route::post('/',[XAuthController::class,'handleLogin']);
+            Route::get('/',[HAuthController::class,'login']);
+            Route::post('/',[HAuthController::class,'handleLogin']);
         });
     });
 };

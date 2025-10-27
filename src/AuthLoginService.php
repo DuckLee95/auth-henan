@@ -1,11 +1,11 @@
 <?php
 
-namespace Blessing\XAuth;
+namespace Blessing\HAuth;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
-use Blessing\XAuth\RSAUtils;
+use Blessing\HAuth\RSAUtils;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
