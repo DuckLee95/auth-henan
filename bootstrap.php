@@ -13,10 +13,10 @@ return function (Dispatcher $events, Filter $filter) {
     //
     $filter->add('oauth_providers', function (Collection $providers) {
         $providers->put(
-            'ncwu',
+            'henan',
             [
-                'icon' => 'ncwu',
-                'displayName' => 'Ncwu统一认证',
+                'icon' => 'henan',
+                'displayName' => '统一认证',
             ]
         );
         return $providers;
@@ -27,7 +27,7 @@ return function (Dispatcher $events, Filter $filter) {
 
     // 路由
     Hook::addRoute(function(){
-        Route::prefix('auth/login/ncwu')
+        Route::prefix('auth/login/henan')
         ->namespace('Blessing\XAuth')
         ->middleware(['web','guest'])
         ->group(function(){

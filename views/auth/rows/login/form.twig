@@ -1,6 +1,15 @@
 <main>
   <form method="post" id="login-form" action="{{ url('/auth/login/ncwu') }}">
     {{ csrf_field() }}
+    <!-- auth_type -->
+     <div class="input-group mb-3">
+      
+      <div class="input-group-append">
+        <div class="input-group-text">
+          <span class="fas fa-user" />
+        </div>
+      </div>
+    </div>
     <!-- xauth-id -->
     <div class="input-group mb-3">
       <input name="identification" type="text" class="form-control"

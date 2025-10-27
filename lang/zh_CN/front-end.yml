@@ -2,7 +2,7 @@
 auth:
   login: 登录
   loggingIn: 登录中
-  message: 使用Ncwu统一认证自动注册!!
+  message: 使用统一认证自动注册!!
   tooManyFails:
     captcha: 你尝试的次数太多啦，请输入验证码
     recaptcha: 你尝试的次数太多啦，请通过 reCAPTCHA 人机验证
