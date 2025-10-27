@@ -79,7 +79,7 @@ class XAuthController
         // TODO:自定义邮箱
 
         // 默认校园邮箱
-        $identification .= '@ncwu.edu.cn';
+        $identification .= '@stu.ncwu.edu.cn';
 
         // Guess type of identification
         $authType = filter_var($identification, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
