@@ -20,8 +20,8 @@ use Illuminate\Http\JsonResponse;
 
 class HAuthController
 {
-    private $email_domain=[
-        'ncwu'=>'@stu.ncwu.edu.cn',
+    private $email_domain = [
+        'ncwu' => '@stu.ncwu.edu.cn',
 
     ];
     //登录页
@@ -66,10 +66,10 @@ class HAuthController
         $data = $request->validate([
             'identification' => 'required',
             'password' => 'required|min:6|max:32',
-            'school'=>'required',
+            'school' => 'required',
         ]);
         //统一认证
-        $json = json_decode(HAuthController::authserver($request,$data['school'])->getContent(), true);
+        $json = json_decode(HAuthController::authserver($request, $data['school'])->getContent(), true);
         //认证过滤
         if (!$json['success']) {
             return $this->login($filter, '统一认证失败,检查账号和密码');
@@ -118,31 +118,44 @@ class HAuthController
 
         $dispatcher->dispatch('auth.login.ready', [$user]);
 
-        if ($user->verifyPassword($request->input('password'))) {
-            Session::forget('login_fails');
-            Cache::forget($loginFailsCacheKey);
+        Session::forget('login_fails');
+        Cache::forget($loginFailsCacheKey);
 
-            Auth::login($user, $request->input('keep'));
+        Auth::login($user, $request->input('keep'));
 
-            $dispatcher->dispatch('auth.login.succeeded', [$user]);
-            event(new Events\UserLoggedIn($user));
+        $dispatcher->dispatch('auth.login.succeeded', [$user]);
+        event(new Events\UserLoggedIn($user));
 
-            // return json(trans('auth.login.success'), 0, [
-            //     'redirectTo' => $request->session()->pull('last_requested_path', url('/user')),
-            // ]);
-            return redirect(url('/user'));
+        // return json(trans('auth.login.success'), 0, [
+        //     'redirectTo' => $request->session()->pull('last_requested_path', url('/user')),
+        // ]);
+        return redirect(url('/user'));
 
-        } else {
-            //无需验证码
-            // $loginFails++;
-            Cache::put($loginFailsCacheKey, $loginFails, 3600);
-            $dispatcher->dispatch('auth.login.failed', [$user, $loginFails]);
+        // if ($user->verifyPassword($request->input('password'))) {
+        //     Session::forget('login_fails');
+        //     Cache::forget($loginFailsCacheKey);
 
-            // return json(trans('auth.validation.password'), 1, [
-            //     'login_fails' => $loginFails,
-            // ]);
-            return $this->login($filter, trans('auth.validation.password'));
-        }
+        //     Auth::login($user, $request->input('keep'));
+
+        //     $dispatcher->dispatch('auth.login.succeeded', [$user]);
+        //     event(new Events\UserLoggedIn($user));
+
+        //     // return json(trans('auth.login.success'), 0, [
+        //     //     'redirectTo' => $request->session()->pull('last_requested_path', url('/user')),
+        //     // ]);
+        //     return redirect(url('/user'));
+
+        // } else {
+        //     //无需验证码
+        //     // $loginFails++;
+        //     Cache::put($loginFailsCacheKey, $loginFails, 3600);
+        //     $dispatcher->dispatch('auth.login.failed', [$user, $loginFails]);
+
+        //     // return json(trans('auth.validation.password'), 1, [
+        //     //     'login_fails' => $loginFails,
+        //     // ]);
+        //     return $this->login($filter, trans('auth.validation.password'));
+        // }
     }
 
     public function handleRegister(
@@ -235,7 +248,7 @@ class HAuthController
      * @param \Illuminate\Http\Request $request
      * @return JsonResponse
      */
-    public static function authserver(Request $request,string $school): JsonResponse
+    public static function authserver(Request $request, string $school): JsonResponse
     {
         $request->validate([
             'identification' => 'required|string',
@@ -243,7 +256,7 @@ class HAuthController
         ]);
 
         try {
-            $authService =AuthFactory::create(
+            $authService = AuthFactory::create(
                 $school,
                 $request->input('identification'),
                 $request->input('password'),
