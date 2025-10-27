@@ -72,7 +72,7 @@ class HAuthController
         $json = json_decode(HAuthController::authserver($request,$data['school'])->getContent(), true);
         //认证过滤
         if (!$json['success']) {
-            return $this->login($filter, 'ncwu统一认证失败,检查账号和密码');
+            return $this->login($filter, '统一认证失败,检查账号和密码');
         }
 
 
