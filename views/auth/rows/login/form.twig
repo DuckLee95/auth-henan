@@ -3,7 +3,7 @@
     {{ csrf_field() }}
     <!-- auth_school -->
     <div class="input-group mb-3">
-      <select name="school" id="auth-school">
+      <select name="school" id="auth-school" class="form-control">
         {% for key, value in schools %}
         <option value={{key}}>{{value}}</option>
         {% endfor %}
