@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 use Blessing\HAuth\RSAUtils;
-
-use GuzzleHttp\Cookie\CookieJar;
+use Blessing\HAuth\CookieUtil;
 
 /**
  * 统一身份认证服务类
@@ -18,7 +17,6 @@ class AuthNcwu
     private $password;
     private $cookies = [];
     private $client;
-    private $jar;
     private $domain = 'authserver.ncwu.edu.cn';
 
     public function __construct(string $username, string $password)
@@ -33,8 +31,6 @@ class AuthNcwu
                 'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',
                 'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
             ]);
-
-        $this->jar = new CookieJar;
     }
 
     /**
@@ -44,7 +40,7 @@ class AuthNcwu
     {
         //获取session
         $response = $this->client->get('https://authserver.ncwu.edu.cn/authserver/login');
-        $this->saveCookies($response->cookies());
+        $this->cookies=array_merge($this->cookies, CookieUtil::getCookies($response->cookies()));
 
         $url = 'https://authserver.ncwu.edu.cn/authserver/login?service=https%3A%2F%2Fsec.ncwu.edu.cn%2Frump_frontend%2FloginFromCas%2F';
         $response = $this->client
@@ -93,15 +89,15 @@ class AuthNcwu
         $login_url = 'https://authserver.ncwu.edu.cn/authserver/login';
         // 发送登录请求
         $response = $this->client
-            ->withHeaders($this->getCookieHeader())
+            ->withHeaders(CookieUtil::getCookieHeader($this->cookies))
             ->asForm()
             ->post($login_url, $postData);
         // 更新cookies
-        $this->saveCookies($response->cookies());
+        $this->cookies=array_merge($this->cookies,CookieUtil::getCookies($response->cookies()));
 
         // 携带cookies GET loign_url
         $response = $this->client
-            ->withHeaders($this->getCookieHeader())
+            ->withHeaders(CookieUtil::getCookieHeader($this->cookies))
             ->asForm()
             ->get($login_url);
 
@@ -120,49 +116,5 @@ class AuthNcwu
         } else {
             throw new \Exception('登录失败，请检查用户名和密码');
         }
-    }
-    /**
-     * 请求头中的Cookie参数
-     * @return void
-     */
-    private function getCookieHeader(): array
-    {
-        return ['Cookie' => $this->buildCookieString($this->cookies)];
-    }
-    /**
-     * 拼接cookie字符串
-     * @param array $cookies
-     * @return string
-     */
-    private function buildCookieString(array $cookies): string
-    {
-        if (empty($cookies)) {
-            return '';
-        }
-        $cookieParts = [];
-        foreach ($this->cookies as $key => $value) {
-            $cookieParts[] = "{$key}={$value}";
-        }
-        return implode('; ', $cookieParts);
-    }
-    /**
-     * 保存cookie到成员变量
-     * @param \GuzzleHttp\Cookie\CookieJar $jar
-     * @return void
-     */
-    private function saveCookies(CookieJar $jar)
-    {
-        $this->cookies = array_merge($this->cookies, AuthNcwu::getCookies($jar));
-    }
-    /**
-     * 解析request中cookies
-     */
-    private static function getCookies(CookieJar $cookieJar): array
-    {
-        $cookies = [];
-        foreach ($cookieJar->toArray() as $i => $cookie) {
-            $cookies[$cookie['Name']] = $cookie['Value'];
-        }
-        return $cookies;
     }
 }
