@@ -126,7 +126,6 @@ class AuthHaust extends BaseAuth
 
         // preg_match('/name="execution" value="([^"]*)"/', $response->body(), $executionMatch);
 
-        // TODO
         if (
             Str::contains($response->body(), '登录成功') ||
             Str::contains($response->body(), 'success')
