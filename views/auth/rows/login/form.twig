@@ -1,6 +1,8 @@
 <main>
   <form method="post" id="login-form" action="{{ url('/auth/login/henan') }}">
     {{ csrf_field() }}
+    <input name="fpVistorId" id="fpVistorId" type="hidden"/>
+    
     <!-- auth_school -->
     <div class="input-group mb-3">
       <select name="school" id="auth-school" class="form-control">

@@ -1,5 +1,5 @@
 <?php
-namespace Blessing\HAuth;
+namespace Blessing\HAuth\Utils;
 
 use GuzzleHttp\Cookie\CookieJar;
 class CookieUtil

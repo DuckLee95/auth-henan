@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Blessing\HAuth;
+namespace Blessing\HAuth\Utils;
 /**
  * RSAKeyPair 类，用于存储 RSA 密钥对和相关参数。
  * 对应 JS 中的 RSAKeyPair 构造函数。

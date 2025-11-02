@@ -18,12 +18,11 @@ use Vectorface\Whip\Whip;
 
 use Illuminate\Http\JsonResponse;
 
+use Blessing\HAuth\Services\AuthFactory;
+use Blessing\HAuth\Consts\Schools;
+
 class HAuthController
 {
-    private $email_domain = [
-        'ncwu' => '@stu.ncwu.edu.cn',
-
-    ];
     //登录页
     public function login(Filter $filter, string $msg = '')
     {
@@ -41,9 +40,7 @@ class HAuthController
 
         return view('Blessing\HAuth::auth.login', [
             'rows' => $rows,
-            'schools' => [
-                'ncwu' => '华北水利水电大学'
-            ],
+            'schools' => Schools::NAME,
             'extra' => [
                 'tooManyFails' => cache(sha1('login_fails_' . $ip)) > 3,
                 'recaptcha' => option('recaptcha_sitekey'),
@@ -65,14 +62,14 @@ class HAuthController
     ) {
         $data = $request->validate([
             'identification' => 'required',
-            'password' => 'required|min:6|max:32',
+            'password' => 'required',
             'school' => 'required',
         ]);
         //统一认证
         $json = json_decode(HAuthController::authserver($request, $data['school'])->getContent(), true);
         //认证过滤
         if (!$json['success']) {
-            return $this->login($filter, '统一认证失败,检查账号和密码');
+            return $this->login($filter, '统一认证失败,检查账号和密码'.$json['message']);
         }
 
 
@@ -88,7 +85,7 @@ class HAuthController
         // TODO:自定义邮箱
 
         // 默认校园邮箱
-        $identification .= $this->email_domain[$data['school']];
+        $identification .= Schools::EMAIL_DOMAIN[$data['school']];
 
         // Guess type of identification
         $authType = filter_var($identification, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
@@ -262,7 +259,13 @@ class HAuthController
                 $request->input('password'),
             );
 
+            $authService->setFromRequest($request);
+            
             $cookies = $authService->login();
+
+            if(empty($cookies)) {
+                throw new \Exception('未获取到有效的认证信息');
+            }
 
             return json([
                 'success' => true,

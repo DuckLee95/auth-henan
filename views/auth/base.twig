@@ -1,24 +1,42 @@
 <!DOCTYPE html>
 <html lang="{{ locale }}">
-  <head>
-    {{ include('shared.head') }}
-    <title>{% block title %}{% endblock %} - {{ site_name }}</title>
-  </head>
 
-  <body class="hold-transition login-page">
-    <div class="login-box">
-      <div class="login-logo">
-        <a href="{{ url('/') }}">{{ site_name }}</a>
-      </div>
+<head>
+  {{ include('shared.head') }}
+  <title>{% block title %}{% endblock %} - {{ site_name }}</title>
+  <script>
+    //FingerprintJS - v3.3.6
+    // For Haust,zzu
+    const fpPromise = import('https://openfpcdn.io/fingerprintjs/v3.3.6')
+      .then(FingerprintJS => FingerprintJS.load())
+    // Get the visitor identifier when you need it.
+    fpPromise
+      .then(fp => fp.get())
+      .then(result => {
+        // This is the visitor identifier:
+        const visitorId = result.visitorId
+        $("#fpVistorId").val(visitorId)
+        // console.log(visitorId)
+      })
+  </script>
+  
+</head>
 
-      <div class="card">
-        <div class="card-body login-card-body">
-          {% block content %}{% endblock %}
-        </div>
-      </div>
+<body class="hold-transition login-page">
+  <div class="login-box">
+    <div class="login-logo">
+      <a href="{{ url('/') }}">{{ site_name }}</a>
     </div>
 
-    {% block before_foot %}{% endblock %}
-    {{ include('shared.foot') }}
-  </body>
+    <div class="card">
+      <div class="card-body login-card-body">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </div>
+
+  {% block before_foot %}{% endblock %}
+  {{ include('shared.foot') }}
+</body>
+
 </html>

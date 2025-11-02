@@ -1,23 +1,24 @@
 <?php
 
-namespace Blessing\HAuth;
+namespace Blessing\HAuth\Services;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
-use Blessing\HAuth\RSAUtils;
-use Blessing\HAuth\CookieUtil;
+use Blessing\HAuth\Utils\RSAUtils;
+use Blessing\HAuth\Utils\CookieUtil;
+use Blessing\HAuth\Services\BaseAuth;
 
 /**
  * 统一身份认证服务类
  */
-class AuthNcwu
+class AuthNcwu extends BaseAuth
 {
-    private $username;
-    private $password;
-    private $cookies = [];
-    private $client;
-    private $domain = 'authserver.ncwu.edu.cn';
+    // private $username;
+    // private $password;
+    // private $cookies = [];
+    // private $client;
+    // private $domain = 'authserver.ncwu.edu.cn';
 
     public function __construct(string $username, string $password)
     {
@@ -31,6 +32,7 @@ class AuthNcwu
                 'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',
                 'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
             ]);
+        $this->domain='authserver.ncwu.edu.cn';
     }
 
     /**
