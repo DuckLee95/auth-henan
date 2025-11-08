@@ -5,7 +5,7 @@
     
     <!-- auth_school -->
     <div class="input-group mb-3">
-      <select name="school" id="auth-school" class="form-control">
+      <select name="school" id="school" class="form-control">
         {% for key, value in schools %}
         <option value={{key}}>{{value}}</option>
         {% endfor %}
@@ -18,7 +18,7 @@
     </div>
     <!-- HAuth-id -->
     <div class="input-group mb-3">
-      <input name="identification" type="text" class="form-control"
+      <input name="identification" id="identification" type="text" class="form-control"
         placeholder="{{ trans('Blessing\\HAuth::auth.identification') }}">
       <div class="input-group-append">
         <div class="input-group-text">
@@ -28,7 +28,7 @@
     </div>
     <!-- password -->
     <div class="input-group mb-3">
-      <input name="password" type="password" class="form-control"
+      <input name="password" id="password" type="password" class="form-control"
         placeholder="{{ trans('Blessing\\HAuth::auth.password') }}">
       <div class="input-group-append">
         <div class="input-group-text">
@@ -68,5 +68,8 @@
     <button type="submit" class="btn btn-primary btn-block mt-3">
       {{ trans('Blessing\\HAuth::auth.login.title') }}
     </button>
+
+    <a href="{{url('/auth/login')}}">返回登录页</a>
+    
   </form>
 </main>

@@ -20,8 +20,6 @@ class AuthHaust extends BaseAuth
             'language' => 'zh-CN',
         ], $vpn_domain);
 
-        $debug_steps = [];
-
         try {
             // 1. 模拟一个非常真实的浏览器头
             $browserHeaders = [

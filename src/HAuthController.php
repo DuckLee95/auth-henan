@@ -23,8 +23,9 @@ use Blessing\HAuth\Consts\Schools;
 
 class HAuthController
 {
+    private $user_data=[];
     //登录页
-    public function login(Filter $filter, string $msg = '')
+    public function login(Filter $filter, string $msg = '',$user_data=[])
     {
         $whip = new Whip();
         $ip = $whip->getValidIpAddress();
@@ -46,7 +47,8 @@ class HAuthController
                 'recaptcha' => option('recaptcha_sitekey'),
                 'invisible' => (bool) option('recaptcha_invisible'),
             ],
-            'msg' => $msg
+            'msg' => $msg,
+            'user_data'=>$user_data,
         ]);
     }
     /**
@@ -65,11 +67,12 @@ class HAuthController
             'password' => 'required',
             'school' => 'required',
         ]);
+        $this->user_data=$data;
         //统一认证
         $json = json_decode(HAuthController::authserver($request, $data['school'])->getContent(), true);
         //认证过滤
         if (!$json['success']) {
-            return $this->login($filter, '统一认证失败,检查账号和密码'.$json['message']);
+            return $this->login($filter, '统一认证失败,检查账号和密码'.$json['message'],$this->user_data);
         }
 
 
@@ -178,7 +181,7 @@ class HAuthController
             ['nickname' => 'required|max:255'];
         $data = $request->validate(array_merge([
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:8|max:32',
+            'password' => 'required',
         ], $rule));
         $playerName = $request->input('player_name');
 
@@ -188,7 +191,7 @@ class HAuthController
             option('register_with_player_name') &&
             Player::where('name', $playerName)->count() > 0
         ) {
-            return $this->login($filter, trans('user.player.add.repeated'));
+            return $this->login($filter, trans('user.player.add.repeated'),$this->user_data);
         }
 
         // If amount of registered accounts of IP is more than allowed amount,
@@ -197,7 +200,7 @@ class HAuthController
         $ip = $whip->getValidIpAddress();
         $ip = $filter->apply('client_ip', $ip);
         if (User::where('ip', $ip)->count() >= option('regs_per_ip')) {
-            return $this->login($filter, trans('auth.register.max', ['regs' => option('regs_per_ip')]));
+            return $this->login($filter, trans('auth.register.max', ['regs' => option('regs_per_ip')]),$this->user_data);
         }
 
         $dispatcher->dispatch('auth.registration.ready', [$data]);

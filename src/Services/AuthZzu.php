@@ -59,15 +59,14 @@ class AuthZzu extends BaseAuth{
                 ->withOptions(['cookies' => $cookieJar])
                 ->asForm()
                 ->post($login_url, $formData);
-            // dd($formData,$response->body());
-
+            // dd($formData,$response->body(),$cookieJar);
+            // dd($cookieJar->getCookieByName("CAS_TRACE_ID"));
         }catch(\Exception $e){
             throw new \Exception('认证失败:'.$e->getMessage());
         }
         
         if (
-            Str::contains($response->body(), '登录成功') ||
-            Str::contains($response->body(), 'success')
+            $cookieJar->getCookieByName("CAS_TRACE_ID")
         ) {
             return $cookieJar->toArray();
         } else {
