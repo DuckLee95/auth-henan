@@ -84,7 +84,7 @@ class AuthZut extends BaseAuth
         }
         $imgJsonString = $response->body();
         // 外部调用opencv-python
-        $python_script = 'resources/py/matchTemplate.py';
+        $python_script = 'resources/py/match_zut.py';
         $python_script = dirname(__DIR__) . DIRECTORY_SEPARATOR . $python_script;
         $python_executable = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "assets/py_venv/bin/python3";
         $args = [
