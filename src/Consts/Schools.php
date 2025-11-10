@@ -9,7 +9,7 @@ class Schools
         'zzu' => '郑州大学',
         'zut' => '中原工学院',
         'lit' => '洛阳理工学院',
-        'htu' => '河南师范大学(施工中)',
+        'htu' => '河南师范大学',
     ];
     const EMAIL_DOMAIN = [
         'ncwu' => '@stu.ncwu.edu.cn',
@@ -25,7 +25,7 @@ class Schools
         'zzu' => 'https://cas.s.zzu.edu.cn/cas/a/login',
         'lit' => 'http://ids.lit.edu.cn/authserver/login',
         'zut' => 'https://authserver.zut.edu.cn/authserver/login?service=https%3A%2F%2Fi.zut.edu.cn%3A443%2Flogin%3Fservice%3Dhttps%3A%2F%2Fi.zut.edu.cn%2Fnew%2Findex.html',
-        'htu' => '河南师范大学',
+        'htu' => 'https://jwc.htu.edu.cn/',
     ];
 
     const BROWSER_HEADERS = [
