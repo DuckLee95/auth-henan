@@ -695,3 +695,6 @@ RSAUtils.decryptedString = function(key, s) {
 RSAUtils.setMaxDigits(130);
 
 })(window);
+
+var global=this||{};
+global.RSAUtils=RSAUtils;
