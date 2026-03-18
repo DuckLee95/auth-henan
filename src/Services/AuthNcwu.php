@@ -32,7 +32,7 @@ class AuthNcwu extends BaseAuth
                 'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8',
                 'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
             ]);
-        $this->domain='authserver.ncwu.edu.cn';
+        $this->domain = 'authserver.ncwu.edu.cn';
     }
 
     /**
@@ -42,7 +42,7 @@ class AuthNcwu extends BaseAuth
     {
         //获取session
         $response = $this->client->get('https://authserver.ncwu.edu.cn/authserver/login');
-        $this->cookies=array_merge($this->cookies, CookieUtil::getCookies($response->cookies()));
+        $this->cookies = array_merge($this->cookies, CookieUtil::getCookies($response->cookies()));
 
         $url = 'https://authserver.ncwu.edu.cn/authserver/login?service=https%3A%2F%2Fsec.ncwu.edu.cn%2Frump_frontend%2FloginFromCas%2F';
         $response = $this->client
@@ -70,49 +70,33 @@ class AuthNcwu extends BaseAuth
             throw new \Exception('获取登录参数失败');
         }
 
-        $url_login_js = "https://authserver.ncwu.edu.cn/authserver/themes/sudy_default/js/login.js";
-        $js_login = $this->client->get($url_login_js)->body();
-
-        // 密码加密
-        preg_match('/RSAUtils\.getKeyPair\(\s*"([^"]+)"\s*,\s*\'([^\']*)\'\s*,\s*"([^"]+)"\s*\)/', $js_login, $keyMatch);
-        $key = RSAUtils::getKeyPair($keyMatch[1], $keyMatch[2], $keyMatch[3]);
-        $encrypted_password = RSAUtils::encryptedString($key, $this->password);
-
-        // 构建登录数据
-        $postData = [
-            'username' => $this->username,
-            'password' => $encrypted_password,
-            'execution' => $params['execution'],
-            'encrypted' => true,
-            '_eventId' => 'submit',
-            'loginType' => '1'
+        $this->cookies->set('', $params['username'], $params['password']);
+        // 外部调用python脚本
+        $python_script = 'resources/py/match_ncwu.py';
+        $python_script = dirname(__DIR__) . DIRECTORY_SEPARATOR . $python_script;
+        $python_executable = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "assets/py_venv/bin/python3";
+        $args = [
+            $python_executable,
+            $python_script,
+            $this->username,
+            $this->password,
         ];
-
-        $login_url = 'https://authserver.ncwu.edu.cn/authserver/login';
-        // 发送登录请求
-        $response = $this->client
-            ->withHeaders(CookieUtil::getCookieHeader($this->cookies))
-            ->asForm()
-            ->post($login_url, $postData);
-        // 更新cookies
-        $this->cookies=array_merge($this->cookies,CookieUtil::getCookies($response->cookies()));
-
-        // 携带cookies GET loign_url
-        $response = $this->client
-            ->withHeaders(CookieUtil::getCookieHeader($this->cookies))
-            ->asForm()
-            ->get($login_url);
-
-
-        // 检查登录是否成功
-        if ($response->status() !== 200) {
-            throw new \Exception('登录请求失败，状态码: ' . $response->status());
+        $process = new Process($args);
+        $process->run();
+        if (!$process->isSuccessful()) {
+            log("python进程失败!");
+            // 打印标准错误输出
+            log("STDERR: " . $process->getErrorOutput());
+            log("STDOUT: " . $process->getOutput());
+            throw new \Exception('可能服务器驱动异常,请重试');
         }
+        $output = $process->getOutput();
+        $lines = explode("\n", $output);
+        $firstLine = $lines[0] ?? "";
 
-        // 可以根据响应内容进一步判断登录是否成功
+        // 脚本登录成功会输出True
         if (
-            Str::contains($response->body(), '登录成功') ||
-            Str::contains($response->body(), 'success')
+            trim($firstLine) === 'True'
         ) {
             return $this->cookies;
         } else {
