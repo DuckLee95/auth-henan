@@ -18,8 +18,7 @@ use Vectorface\Whip\Whip;
 
 use Illuminate\Http\JsonResponse;
 
-use Blessing\HAuth\Services\AuthFactory;
-use Blessing\HAuth\Consts\Schools;
+use Blessing\HAuth\SchoolRegistry;
 
 class HAuthController
 {
@@ -39,7 +38,7 @@ class HAuthController
 
         return view('Blessing\HAuth::auth.login', [
             'rows' => $rows,
-            'schools' => Schools::NAME,
+            'schools' => SchoolRegistry::names(),
             'extra' => [
                 'tooManyFails' => cache(sha1('login_fails_' . $ip)) > 3,
                 'recaptcha' => option('recaptcha_sitekey'),
@@ -86,7 +85,7 @@ class HAuthController
         // TODO:自定义邮箱
 
         // 默认校园邮箱
-        $identification .= Schools::EMAIL_DOMAIN[$data['school']];
+        $identification .= SchoolRegistry::emailDomain($data['school']);
 
         // Guess type of identification
         $authType = filter_var($identification, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
@@ -254,24 +253,18 @@ class HAuthController
         ]);
 
         try {
-            $authService = AuthFactory::create(
+            $success = SchoolRegistry::login(
                 $school,
                 $request->input('identification'),
                 $request->input('password'),
             );
-
-            $authService->setFromRequest($request);
-            
-            $cookies = $authService->login();
-
-            if(empty($cookies)) {
-                throw new \Exception('未获取到有效的认证信息');
+            if (!$success) {
+                throw new \Exception('账号或密码错误');
             }
 
             return json([
                 'success' => true,
                 'message' => '登录成功',
-                'cookies' => $cookies
             ]);
 
         } catch (\Exception $e) {

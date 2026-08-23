@@ -1,0 +1,7 @@
+auth:
+  login: Sign in
+  loggingIn: Signing in
+  message: Sign in or register with your university account
+  nickname: Nickname
+  player-name: In-game player name
+  password: Password
