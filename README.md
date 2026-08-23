@@ -42,13 +42,13 @@ src/
     └── ZzuAuth.php          # 郑大 Provider
 ```
 
-## 原始作者
+## 贡献者
 
-<a href="https://github.com/homoarea">
-  <img src="https://github.com/homoarea.png?size=160" width="96" height="96" alt="Homoarea 的头像">
+<a href="https://github.com/chank616/auth-henan/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=chank616/auth-henan" alt="项目贡献者">
 </a>
 
-[@Homoarea](https://github.com/homoarea)
+原始作者：[@Homoarea](https://github.com/homoarea)
 
 ## License
 
