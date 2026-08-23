@@ -1,5 +1,5 @@
 <main>
-  <form method="post" id="login-form" action="{{ url('/auth/login/henan') }}">
+  <form method="post" id="register-form" action="{{ url('/auth/register/henan') }}">
     {{ csrf_field() }}
 
     <div class="input-group mb-3">
@@ -50,6 +50,56 @@
       </div>
     </div>
 
+    <div class="input-group mb-3">
+      <input
+        name="player_name"
+        id="player-name"
+        type="text"
+        class="form-control"
+        value="{{ user_data.player_name }}"
+        placeholder="{{ trans('Blessing\\HAuth::auth.player-name') }}"
+        autocomplete="off"
+        required
+      >
+      <div class="input-group-append">
+        <div class="input-group-text">
+          <span class="fas fa-gamepad"></span>
+        </div>
+      </div>
+    </div>
+
+    {% if extra.recaptcha %}
+      <input type="hidden" name="captcha" id="henan-captcha-token">
+      <div
+        class="g-recaptcha mb-3"
+        data-sitekey="{{ extra.recaptcha }}"
+        data-size="{{ extra.invisible ? 'invisible' : 'normal' }}"
+        data-callback="henanCaptchaCompleted"
+        data-expired-callback="henanCaptchaExpired"
+      ></div>
+    {% else %}
+      <div class="input-group mb-3">
+        <input
+          name="captcha"
+          type="text"
+          class="form-control"
+          placeholder="{{ trans('Blessing\\HAuth::auth.captcha') }}"
+          autocomplete="off"
+          required
+        >
+        <div class="input-group-append">
+          <img
+            src="{{ url('/auth/captcha') }}"
+            alt="{{ trans('Blessing\\HAuth::auth.captcha') }}"
+            title="{{ trans('Blessing\\HAuth::auth.change-captcha') }}"
+            class="border rounded-right"
+            style="height: 38px; cursor: pointer;"
+            onclick="this.src='{{ url('/auth/captcha') }}?v=' + Date.now()"
+          >
+        </div>
+      </div>
+    {% endif %}
+
     {% if errors.any %}
       <div class="alert alert-warning">
         <i class="icon fas fa-exclamation-triangle mr-1"></i>
@@ -65,12 +115,12 @@
     {% endif %}
 
     <button type="submit" class="btn btn-primary btn-block mt-3">
-      {{ trans('Blessing\\HAuth::auth.login.title') }}
+      {{ trans('Blessing\\HAuth::auth.register.title') }}
     </button>
 
     <div class="d-flex justify-content-between mt-2">
-      <a href="{{ url('/auth/login') }}">{{ trans('Blessing\\HAuth::auth.login.normal') }}</a>
-      <a href="{{ url('/auth/register/henan') }}">{{ trans('Blessing\\HAuth::auth.login.register') }}</a>
+      <a href="{{ url('/auth/register') }}">{{ trans('Blessing\\HAuth::auth.register.normal') }}</a>
+      <a href="{{ url('/auth/login/henan') }}">{{ trans('Blessing\\HAuth::auth.register.login') }}</a>
     </div>
   </form>
 </main>

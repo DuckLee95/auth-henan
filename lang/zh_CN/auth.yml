@@ -5,11 +5,21 @@ register-link: 注册新账号
 identification: 统一身份认证账号
 password: 统一身份认证密码
 player-name: 游戏内角色名
+captcha: 请输入验证码
+change-captcha: 点击更换验证码
+
+entry:
+  login: 高校在校生登录入口
+  login-button: 使用高校账号登录
+  register: 高校在校生注册入口
+  register-button: 使用高校账号注册
 
 login:
   title: 登录
-  message: 使用河南高校统一认证登录或注册
+  message: 使用河南高校统一认证登录
   success: 登录成功，欢迎回来
+  normal: 返回普通登录
+  register: 使用高校账号注册
 check:
   anonymous: 未授权的访问，请先登录
   verified: 你必须验证邮箱后才能访问此页面
@@ -17,9 +27,11 @@ check:
   banned: 你已被本站封禁，详情请联系站点管理员
 register:
   title: 注册
-  message: 欢迎使用 :sitename！
+  message: 验证高校账号并创建皮肤站账号
   success: 注册成功，正在跳转...
   max: 你在本站注册的账号已达到上限 :regs 个，无法继续注册
+  normal: 返回普通注册
+  login: 已有账号？高校账号登录
 
 
   
@@ -59,6 +71,10 @@ verify:
 validation:
   user: 用户不存在
   password: 密码错误
+  credentials: 统一认证失败，请检查账号和密码
+  unavailable: 高校统一认证服务暂时不可用，请稍后重试
+  unregistered: 该高校账号尚未注册，请先使用高校账号注册
+  registered: 该高校账号已经注册，请直接登录
 logout:
   success: 登出成功
 oauth:
