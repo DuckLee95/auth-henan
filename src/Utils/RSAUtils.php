@@ -17,6 +17,8 @@ class RSAKeyPair {
     public $chunkSize;
     /** @var int 进制（始终为 16） */
     public $radix;
+    /** @var int 加密块输出的十六进制长度 */
+    public $blockHexLength;
 
     /**
      * 构造函数
@@ -35,8 +37,11 @@ class RSAKeyPair {
         // JS 版的 biHighIndex 是基于 16 位（4 个十六进制字符）的“数字”
         // (ceil(strlen($modulus) / 4) - 1) 对应 biHighIndex(this.m)
         // 每个 "digit" 对应 2 个字节，所以 chunkSize = 2 * (num_digits - 1)
-        $num_digits = (int)ceil(strlen($modulus) / 4);
+        // JS 版 biFromHex 会忽略最高位的 0；公钥通常以 "00" 开头用于表示正数。
+        $significantModulus = ltrim($modulus, '0');
+        $num_digits = (int)ceil(strlen($significantModulus ?: '0') / 4);
         $this->chunkSize = 2 * ($num_digits - 1);
+        $this->blockHexLength = $num_digits * 4;
     }
 }
 
@@ -112,7 +117,7 @@ class RSAUtils {
 
             // 将大数转换为十六进制
             // JS: var text = key.radix == 16 ? RSAUtils.biToHex(crypt) : ...
-            $text = self::biToHex($crypt);
+            $text = str_pad(self::biToHex($crypt), $key->blockHexLength, '0', STR_PAD_LEFT);
             
             $result .= $text . " ";
         }
