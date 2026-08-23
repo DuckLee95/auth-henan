@@ -29,6 +29,8 @@
 
 无需认领 Issue，也无需添加主仓库协作者。具体代码要求见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
+推荐使用 AI 辅助开发。开始前请让 AI 阅读 [AGENTS.md](AGENTS.md) 或 [CLAUDE.md](CLAUDE.md)，并参考 [Blessing Skin 官方插件开发文档](https://bs-plugin.netlify.app/)。AI 生成的代码由提交者自行检查后再提交。
+
 ## 项目结构
 
 ```text
