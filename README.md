@@ -42,8 +42,6 @@ src/
 
 ## 贡献者
 
-感谢所有参与学校认证适配和插件维护的贡献者。
-
 <table>
   <tr>
     <td align="center" width="220">
@@ -51,14 +49,14 @@ src/
         <img src="https://github.com/homoarea.png?size=160" width="96" height="96" alt="Homoarea 的头像"><br>
         <sub><b>Homoarea</b></sub>
       </a><br>
-      <sub>原始作者<br>插件基础结构、早期学校认证适配</sub>
+      <sub>原始作者</sub>
     </td>
     <td align="center" width="220">
       <a href="https://github.com/chank616">
         <img src="https://github.com/chank616.png?size=160" width="96" height="96" alt="Chank616 的头像"><br>
         <sub><b>Chank616</b></sub>
       </a><br>
-      <sub>当前维护者<br>PHP 重构、Provider POC、部署与文档</sub>
+      <sub>华水维护者</sub>
     </td>
   </tr>
 </table>
