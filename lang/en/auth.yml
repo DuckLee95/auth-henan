@@ -1,0 +1,30 @@
+---
+identification: University account
+password: University account password
+player-name: In-game player name
+captcha: Enter the CAPTCHA
+change-captcha: Click to refresh the CAPTCHA
+
+entry:
+  login: University student sign-in
+  login-button: Sign in with university account
+  register: University student registration
+  register-button: Register with university account
+
+login:
+  title: Sign in
+  message: Sign in with a Henan university account
+  normal: Return to regular sign-in
+  register: Register with university account
+
+register:
+  title: Register
+  message: Verify your university account and create a site account
+  normal: Return to regular registration
+  login: Already registered? Sign in
+
+validation:
+  credentials: University authentication failed. Check your account and password.
+  unavailable: The university authentication service is temporarily unavailable. Try again later.
+  unregistered: This university account is not registered. Register it first.
+  registered: This university account is already registered. Sign in instead.

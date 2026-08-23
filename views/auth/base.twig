@@ -4,22 +4,6 @@
 <head>
   {{ include('shared.head') }}
   <title>{% block title %}{% endblock %} - {{ site_name }}</title>
-  <script>
-    //FingerprintJS - v3.3.6
-    // For Haust,zzu
-    const fpPromise = import('https://openfpcdn.io/fingerprintjs/v3.3.6')
-      .then(FingerprintJS => FingerprintJS.load())
-    // Get the visitor identifier when you need it.
-    fpPromise
-      .then(fp => fp.get())
-      .then(result => {
-        // This is the visitor identifier:
-        const visitorId = result.visitorId
-        $("#fpVistorId").val(visitorId)
-        // console.log(visitorId)
-      })
-
-  </script>
 </head>
 
 <body class="hold-transition login-page">

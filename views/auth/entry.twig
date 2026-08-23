@@ -1,7 +1,7 @@
 <div class="my-3 text-center">
-  <div class="mb-2 text-muted">高校在校生入口</div>
+  <div class="mb-2 text-muted">{{ trans('Blessing\\HAuth::auth.entry.login') }}</div>
   <a href="{{ url('/auth/login/henan') }}" class="btn btn-block bg-light border-secondary">
     <i class="fas fa-university mr-1"></i>
-    使用高校账号认证
+    {{ trans('Blessing\\HAuth::auth.entry.login-button') }}
   </a>
 </div>

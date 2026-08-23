@@ -5,12 +5,5 @@
 {% block content %}
   {% for row in rows %}
     {{ include(row) }}
-  {% endfor %}  
-{% endblock %}
-
-
-{% block before_foot %}
-  <script id="blessing-extra" type="application/json">
-    {{ extra|json_encode|raw }}
-  </script>
+  {% endfor %}
 {% endblock %}

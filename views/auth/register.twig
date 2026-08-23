@@ -1,0 +1,41 @@
+{% extends 'Blessing\\HAuth::auth.base' %}
+
+{% block title %}{{ trans('Blessing\\HAuth::auth.register.title') }}{% endblock %}
+
+{% block content %}
+  {% for row in rows %}
+    {{ include(row) }}
+  {% endfor %}
+{% endblock %}
+
+{% block before_foot %}
+  {% if extra.recaptcha %}
+    <script>
+      (function () {
+        var form = document.getElementById('register-form');
+        var input = document.getElementById('henan-captcha-token');
+        var invisible = {{ extra.invisible ? 'true' : 'false' }};
+
+        window.henanCaptchaCompleted = function (token) {
+          input.value = token;
+          if (invisible) {
+            form.submit();
+          }
+        };
+        window.henanCaptchaExpired = function () {
+          input.value = '';
+        };
+
+        if (invisible) {
+          form.addEventListener('submit', function (event) {
+            if (!input.value) {
+              event.preventDefault();
+              grecaptcha.execute();
+            }
+          });
+        }
+      })();
+    </script>
+    <script src="https://www.recaptcha.net/recaptcha/api.js" async defer></script>
+  {% endif %}
+{% endblock %}
