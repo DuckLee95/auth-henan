@@ -8,7 +8,7 @@ player-name: 游戏内角色名
 
 login:
   title: 登录
-  message: 使用 henan 统一认证自动注册!!
+  message: 使用河南高校统一认证登录或注册
   success: 登录成功，欢迎回来
 check:
   anonymous: 未授权的访问，请先登录
@@ -91,4 +91,3 @@ oauth:
     reports-management:
       read: 允许应用读取用户的举报
       readwrite: 允许应用读取和处理用户的举报
-

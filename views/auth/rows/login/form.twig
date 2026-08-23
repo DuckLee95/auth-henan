@@ -2,7 +2,7 @@
   <form method="post" id="login-form" action="{{ url('/auth/login/henan') }}">
     {{ csrf_field() }}
     <input name="fpVistorId" id="fpVistorId" type="hidden"/>
-    
+
     <!-- auth_school -->
     <div class="input-group mb-3">
       <select name="school" id="school" class="form-control">
@@ -69,7 +69,10 @@
       {{ trans('Blessing\\HAuth::auth.login.title') }}
     </button>
 
-    <a href="{{url('/auth/login')}}">返回登录页</a>
+    <div class="d-flex justify-content-between mt-2">
+      <a href="{{ url('/auth/login') }}">返回普通登录</a>
+      <a href="{{ url('/auth/register') }}">注册新账号</a>
+    </div>
     
   </form>
 </main>

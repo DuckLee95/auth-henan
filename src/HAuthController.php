@@ -35,9 +35,7 @@ class HAuthController
             'Blessing\HAuth::auth.rows.login.notice',
             'Blessing\HAuth::auth.rows.login.form',
             'Blessing\HAuth::auth.rows.login.message',
-            'Blessing\HAuth::auth.rows.login.registration-link',
         ];
-        $rows = $filter->apply('auth_page_rows:login', $rows);
 
         return view('Blessing\HAuth::auth.login', [
             'rows' => $rows,

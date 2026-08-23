@@ -1,11 +1,12 @@
 {
   "name": "auth-henan",
   "title": "Blessing\\HAuth::general.title",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Blessing\\HAuth::general.description",
   "author": "homoarea",
-  "url": "https://github.com/",
+  "url": "https://github.com/chank616/auth-henan",
   "namespace": "Blessing\\HAuth",
+  "publish-assets": false,
   "require": {
     "blessing-skin-server": "^5|^6"
   },

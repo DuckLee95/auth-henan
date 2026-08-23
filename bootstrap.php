@@ -3,36 +3,34 @@
 use Blessing\Filter;
 
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\Collection;
 
 use App\Services\Hook;
 
 use Blessing\HAuth\HAuthController;
 
 return function (Dispatcher $events, Filter $filter) {
-    //
-    $filter->add('oauth_providers', function (Collection $providers) {
-        $providers->put(
-            'henan',
-            [
-                'icon' => 'henan',
-                'displayName' => '统一认证',
-            ]
-        );
-        return $providers;
-    });
+    // Keep the school authentication entry independent from OAuthCore.
+    // A high priority makes the entry stay at the bottom of both auth pages.
+    $appendEntry = static function (array $rows) {
+        $entry = 'Blessing\\HAuth::auth.entry';
+        $rows = array_values(array_filter($rows, static function ($row) use ($entry) {
+            return $row !== $entry;
+        }));
+        $rows[] = $entry;
 
-    // 中间件
+        return $rows;
+    };
 
+    $filter->add('auth_page_rows:login', $appendEntry, 100);
+    $filter->add('auth_page_rows:register', $appendEntry, 100);
 
-    // 路由
-    Hook::addRoute(function(){
+    Hook::addRoute(function () {
         Route::prefix('auth/login/henan')
-        ->namespace('Blessing\HAuth')
-        ->middleware(['web','guest'])
-        ->group(function(){
-            Route::get('/',[HAuthController::class,'login']);
-            Route::post('/',[HAuthController::class,'handleLogin']);
-        });
+            ->namespace('Blessing\HAuth')
+            ->middleware(['web', 'guest'])
+            ->group(function () {
+                Route::get('/', [HAuthController::class, 'login']);
+                Route::post('/', [HAuthController::class, 'handleLogin']);
+            });
     });
 };

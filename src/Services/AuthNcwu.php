@@ -38,19 +38,18 @@ class AuthNcwu extends BaseAuth
         ];
         $process = new Process($args);
         $process->run();
+        // throw new \Exception('args'.json_encode($args).'python'.$process->getOutput().'error:'.$process->getErrorOutput());
         if (!$process->isSuccessful()) {
             throw new \Exception('python执行失败'.$process->getErrorOutput());
         }
         $output = $process->getOutput();
-        $lines = explode("\n", $output);
-        $firstLine = $lines[0] ?? "";
-        throw new \Exception(json_encode($lines));
+        // throw new \Exception($output);
         $this->cookies=[
             'auth_type'=>'nodriver_managed'
             ];
         // 脚本登录成功会输出True
         if (
-            trim($firstLine) === 'True'
+            trim($output) === 'True'
         ) {
             return $this->cookies;
         } else {
