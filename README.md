@@ -44,24 +44,11 @@ src/
 
 ## 贡献者
 
-<table>
-  <tr>
-    <td align="center" width="220">
-      <a href="https://github.com/homoarea">
-        <img src="https://github.com/homoarea.png?size=160" width="96" height="96" alt="Homoarea 的头像"><br>
-        <sub><b>Homoarea</b></sub>
-      </a><br>
-      <sub>原始作者</sub>
-    </td>
-    <td align="center" width="220">
-      <a href="https://github.com/chank616">
-        <img src="https://github.com/chank616.png?size=160" width="96" height="96" alt="Chank616 的头像"><br>
-        <sub><b>Chank616</b></sub>
-      </a><br>
-      <sub>华水维护者</sub>
-    </td>
-  </tr>
-</table>
+<a href="https://github.com/chank616/auth-henan/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=chank616/auth-henan" alt="项目贡献者">
+</a>
+
+原始作者：[@Homoarea](https://github.com/homoarea) · 华水维护：[@Chank616](https://github.com/chank616)
 
 ## License
 
