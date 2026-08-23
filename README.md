@@ -15,6 +15,11 @@
 `SchoolAuth::login()`，再到 `src/SchoolRegistry.php` 注册即可，详见
 `CONTRIBUTING.md`。
 
+## 贡献者
+
+感谢所有参与学校认证适配和插件维护的同学，完整名单见
+[CONTRIBUTORS.md](CONTRIBUTORS.md)。
+
 ## License
 
 MIT License
