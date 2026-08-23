@@ -22,23 +22,23 @@
 
 ## 贡献流程
 
-所有外部贡献都通过 Fork 和 Pull Request 完成，不需要主仓库写入权限。
+本项目采用协作者模式。各校负责人由豫高联皮肤站负责人添加为 GitHub 协作者，所有改动在独立分支完成，并通过 Pull Request 审核后合并。
 
 ### 1. 确认校内分工
 
-各校社长在校内确定负责同学，并说明需要新增或修复的学校认证。负责人无需在 GitHub 创建认领 Issue，拿到任务后直接 Fork 仓库；接口范围不明确时，由各校社长与豫高联皮肤站负责人沟通确认。
+各校社长在校内确定负责同学，并把负责人的 GitHub 用户名发给豫高联皮肤站负责人。负责人接受仓库协作者邀请后即可开始；接口范围不明确时，由各校社长与豫高联皮肤站负责人沟通确认。
 
-### 2. Fork 并创建分支
+### 2. 克隆仓库并创建分支
 
-点击 GitHub 页面右上角的 **Fork**，将仓库复制到自己的账号，然后克隆自己的 Fork：
+接受协作者邀请后，克隆本仓库并为自己的任务创建分支：
 
 ```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/auth-henan.git
+git clone https://github.com/chank616/auth-henan.git
 cd auth-henan
 git switch -c feat/example
 ```
 
-请把 `YOUR_GITHUB_USERNAME` 和 `example` 换成自己的 GitHub 用户名和学校标识。修复已有学校时，可以使用 `fix/example-login` 这样的分支名。
+请把 `example` 换成学校标识。修复已有学校时，可以使用 `fix/example-login` 这样的分支名。不要直接向 `main` 分支提交代码。
 
 ### 3. 实现学校 Provider
 
@@ -51,18 +51,18 @@ git switch -c feat/example
 
 ### 4. 简单测试
 
-将修改后的插件上传到自己的 Blessing Skin 测试站并启用，访问 `/auth/login/henan`。只需要确认两件事：
+从皮肤站后台上传修改后的插件文件，启用或重载插件，然后访问 `/auth/login/henan`。只需要确认两件事：
 
 1. 使用本人的正确学校账号和密码可以认证并进入用户中心。
 2. 把密码故意写错后，页面会提示认证失败，且不会创建账号。
 
-新增学校时，再确认学校名称已经出现在下拉列表中。测试截图只需展示成功和失败结果，并遮盖账号、密码及个人信息。
+新增学校时，再确认学校名称已经出现在下拉列表中。测试截图只需展示成功和失败结果，并遮盖账号、密码及个人信息。测试结束后，将皮肤站插件恢复为 `main` 分支的当前版本，未审核的测试代码不要长期留在线上。
 
 如果本机装有 PHP，可以额外运行 `php -l src/Schools/ExampleAuth.php` 检查语法；请将文件名换成自己修改的 Provider。这一项是建议，不是提交 PR 的硬性要求。
 
 ### 5. 提交 Pull Request
 
-测试通过后，将分支推送到自己的 Fork：
+测试通过后，将分支推送到本仓库：
 
 ```bash
 git add src/Schools/ExampleAuth.php src/SchoolRegistry.php README.md
@@ -72,7 +72,7 @@ git push -u origin feat/example
 
 请按实际文件和学校标识调整示例中的 `ExampleAuth.php` 与 `example`。
 
-然后向本仓库的 `main` 分支提交 Pull Request，并写清楚：
+然后从自己的功能分支向 `main` 分支提交 Pull Request，并写清楚：
 
 - 学校名称、学校标识和认证入口。
 - 新增或修改了哪些文件。
