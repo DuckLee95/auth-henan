@@ -1,5 +1,6 @@
 ---
 identification: University account
+select-school: Select your university
 password: University account password
 site-password: Site password (for regular and launcher sign-in)
 player-name: In-game player name

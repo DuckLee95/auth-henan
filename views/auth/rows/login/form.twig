@@ -4,6 +4,9 @@
 
     <div class="input-group mb-3">
       <select name="school" id="school" class="form-control" required>
+        <option value="" disabled{% if not user_data.school %} selected{% endif %}>
+          {{ trans('Blessing\\HAuth::auth.select-school') }}
+        </option>
         {% for key, value in schools %}
           <option value="{{ key }}"{% if user_data.school == key %} selected{% endif %}>{{ value }}</option>
         {% endfor %}

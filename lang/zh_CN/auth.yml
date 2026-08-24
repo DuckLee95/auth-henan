@@ -3,6 +3,7 @@ email: 电子邮箱
 register-link: 注册新账号
 
 identification: 统一身份认证账号
+select-school: 请选择学校
 password: 统一身份认证密码
 site-password: 皮肤站密码（用于普通登录和启动器登录）
 player-name: 游戏内角色名
