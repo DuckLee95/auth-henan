@@ -83,10 +83,9 @@ class HAuthController
 
         $dispatcher->dispatch('auth.login.ready', [$user]);
 
-        if (!$user->verified) {
-            $user->verified = true;
-            $user->save();
-        }
+        $user->password = $this->hashLocalPassword($data['password'], $filter);
+        $user->verified = true;
+        $user->save();
 
         Auth::login($user);
 
@@ -161,8 +160,7 @@ class HAuthController
         $user->nickname = $data['player_name'];
         $user->score = option('user_initial_score');
         $user->avatar = 0;
-        $localPasswordHash = app('cipher')->hash(bin2hex(random_bytes(32)), config('secure.salt'));
-        $user->password = $filter->apply('user_password', $localPasswordHash);
+        $user->password = $this->hashLocalPassword($data['password'], $filter);
         $user->ip = $ip;
         $user->permission = User::NORMAL;
         $user->verified = true;
@@ -203,5 +201,12 @@ class HAuthController
         }
 
         return null;
+    }
+
+    private function hashLocalPassword(string $password, Filter $filter): string
+    {
+        $hash = app('cipher')->hash($password, config('secure.salt'));
+
+        return $filter->apply('user_password', $hash);
     }
 }
