@@ -44,29 +44,9 @@ src/
 
 ## 贡献者
 
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/Homoarea">
-        <img src="https://github.com/Homoarea.png?size=96" width="80" alt="Homoarea"><br>
-        <sub><b>@Homoarea</b></sub>
-      </a><br>
-      <sub>原始作者</sub>
-    </td>
-    <td align="center">
-      <a href="https://github.com/chank616">
-        <img src="https://github.com/chank616.png?size=96" width="80" alt="chank616"><br>
-        <sub><b>@chank616</b></sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/DuckLee95">
-        <img src="https://github.com/DuckLee95.png?size=96" width="80" alt="DuckLee95"><br>
-        <sub><b>@DuckLee95</b></sub>
-      </a>
-    </td>
-  </tr>
-</table>
+<a href="https://github.com/chank616/auth-henan/graphs/contributors">
+  <img src="assets/contributors.svg" width="720" alt="项目贡献者">
+</a>
 
 ## License
 
