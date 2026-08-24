@@ -75,6 +75,7 @@ validation:
   unavailable: 高校统一认证服务暂时不可用，请稍后重试
   unregistered: 该高校账号尚未注册，请先使用高校账号注册
   registered: 该高校账号已经注册，请直接登录
+  email-locked: 高校账号邮箱由学校身份信息确定，不能自行修改
 logout:
   success: 登出成功
 oauth:

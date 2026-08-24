@@ -28,3 +28,4 @@ validation:
   unavailable: The university authentication service is temporarily unavailable. Try again later.
   unregistered: This university account is not registered. Register it first.
   registered: This university account is already registered. Sign in instead.
+  email-locked: The email address of a university account is fixed by its university identity and cannot be changed.
