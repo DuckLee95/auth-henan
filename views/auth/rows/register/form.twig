@@ -52,6 +52,25 @@
 
     <div class="input-group mb-3">
       <input
+        name="site_password"
+        id="site-password"
+        type="password"
+        class="form-control"
+        placeholder="{{ trans('Blessing\\HAuth::auth.site-password') }}"
+        autocomplete="new-password"
+        minlength="8"
+        maxlength="32"
+        required
+      >
+      <div class="input-group-append">
+        <div class="input-group-text">
+          <span class="fas fa-lock"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-group mb-3">
+      <input
         name="player_name"
         id="player-name"
         type="text"

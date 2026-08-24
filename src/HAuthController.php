@@ -83,9 +83,10 @@ class HAuthController
 
         $dispatcher->dispatch('auth.login.ready', [$user]);
 
-        $user->password = $this->hashLocalPassword($data['password'], $filter);
-        $user->verified = true;
-        $user->save();
+        if (!$user->verified) {
+            $user->verified = true;
+            $user->save();
+        }
 
         Auth::login($user);
 
@@ -110,6 +111,7 @@ class HAuthController
             'school' => 'required|in:' . implode(',', array_keys(SchoolRegistry::SCHOOLS)),
             'identification' => 'required|string|max:255',
             'password' => 'required|string',
+            'site_password' => 'required|string|min:8|max:32',
             'player_name' => [
                 'required',
                 new Rules\PlayerName(),
@@ -160,7 +162,7 @@ class HAuthController
         $user->nickname = $data['player_name'];
         $user->score = option('user_initial_score');
         $user->avatar = 0;
-        $user->password = $this->hashLocalPassword($data['password'], $filter);
+        $user->password = $this->hashLocalPassword($data['site_password'], $filter);
         $user->ip = $ip;
         $user->permission = User::NORMAL;
         $user->verified = true;
