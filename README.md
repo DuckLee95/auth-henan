@@ -45,8 +45,10 @@ src/
 ## 贡献者
 
 <a href="https://github.com/chank616/auth-henan/graphs/contributors">
-  <img src="assets/contributors.svg" width="720" alt="项目贡献者">
+  <img src="https://contrib.rocks/image?repo=chank616/auth-henan&columns=12" alt="项目贡献者">
 </a>
+
+🌸 头像墙会根据 GitHub 贡献记录自动更新。[@Homoarea](https://github.com/Homoarea) 为原始作者。
 
 ## License
 
