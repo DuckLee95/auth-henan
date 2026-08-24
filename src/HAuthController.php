@@ -196,6 +196,14 @@ class HAuthController
         $dispatcher->dispatch('auth.login.attempt', [$email, $data['password'], 'email']);
         event(new Events\UserTryToLogin($email, 'email'));
 
+        if (!User::where('email', $email)->exists()) {
+            return $this->login(
+                $filter,
+                trans('Blessing\HAuth::auth.validation.unregistered'),
+                $userData
+            );
+        }
+
         try {
             $authenticated = SchoolRegistry::login(
                 $data['school'],
