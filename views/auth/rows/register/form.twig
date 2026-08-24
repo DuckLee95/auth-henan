@@ -2,9 +2,14 @@
   <form method="post" id="register-form" action="{{ url('/auth/register/henan') }}">
     {{ csrf_field() }}
 
+    <style>
+      .school-select:required:invalid { color: #6c757d; }
+      .school-select option { color: #495057; }
+    </style>
+
     <div class="input-group mb-3">
-      <select name="school" id="school" class="form-control" required>
-        <option value="" disabled{% if not user_data.school %} selected{% endif %}>
+      <select name="school" id="school" class="form-control school-select" autocomplete="off" required>
+        <option value="" disabled hidden{% if not user_data.school %} selected{% endif %}>
           {{ trans('Blessing\\HAuth::auth.select-school') }}
         </option>
         {% for key, value in schools %}
